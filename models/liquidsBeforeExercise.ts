@@ -7,8 +7,8 @@ export default class LiquidsBeforeExercise {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column('float')
-  corporal_weigth!: number;
+  @Column('text')
+  severity!: string;
 
   two_hours!: TwoHoursBefore;
 

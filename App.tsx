@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { GalioProvider, Button } from 'galio-framework';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { createConnection, getRepository } from 'typeorm/browser';
 import {
@@ -13,6 +15,7 @@ import {
   FourHoursBefore
 } from './models';
 
+import HomeScreen from './screens/HomeScreen';
 import materialTheme from './constants';
 
 const styles = StyleSheet.create({
@@ -23,7 +26,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 });
+const Stack = createStackNavigator();
 
+function Navigation() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Home' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 export default function App() {
   const [conected, setConected] = useState(false);
   const connect = () => {
@@ -60,9 +77,7 @@ export default function App() {
 
   return (
     <GalioProvider theme={materialTheme}>
-      <View style={styles.container}>
-        {conected ? <Text>Connected to db</Text> : <Text>-Not conected</Text>}
-      </View>
+      <Navigation />
     </GalioProvider>
   );
 }
